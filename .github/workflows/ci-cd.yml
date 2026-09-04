@@ -38,19 +38,26 @@ jobs:
           pip install -r backend/requirements.txt
 
 
-      # 4. Python syntax check
+      # 4. Automated Security Scan
+      - name: Bandit Security Scan
+        run: |
+          pip install bandit
+          bandit -r backend -ll
+
+
+      # 5. Python syntax check
       - name: Python Syntax Check
         run: |
           python -m compileall backend
 
 
-      # 5. Build Docker image
+      # 6. Build Docker image
       - name: Build Docker Image
         run: |
           docker build -t devsecops-backend .
 
 
-      # 6. Start PostgreSQL
+      # 7. Start PostgreSQL
       - name: Start PostgreSQL
         run: |
           docker network create devsecops-network || true
@@ -64,7 +71,7 @@ jobs:
             postgres:16
 
 
-      # 7. Wait for PostgreSQL
+      # 8. Wait for PostgreSQL
       - name: Wait for PostgreSQL
         run: |
           for i in {1..20}; do
@@ -79,7 +86,7 @@ jobs:
           done
 
 
-      # 8. Start Backend
+      # 9. Start Backend
       - name: Start Backend
         run: |
           docker run -d \
@@ -89,20 +96,20 @@ jobs:
             devsecops-backend
 
 
-      # 9. Wait for Backend
+      # 10. Wait for Backend
       - name: Wait for Backend
         run: |
           sleep 5
           docker ps
 
 
-      # 10. Health Check
+      # 11. Health Check
       - name: Backend Health Check
         run: |
           curl --fail http://localhost:8000/health
 
 
-      # 11. Show Backend Logs if failed
+      # 12. Show Backend Logs if failed
       - name: Backend Logs
         if: failure()
         run: |
