@@ -1,0 +1,280 @@
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef4ff 0%,
+            #f8fafc 50%,
+            #eaf2ff 100%
+        );
+
+    color: #1f2937;
+}
+
+
+/* =========================================
+   LOGIN / REGISTER CONTAINER
+========================================= */
+
+.login-container {
+    width: 390px;
+
+    background: #ffffff;
+
+    padding: 38px 35px;
+
+    border-radius: 18px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.10);
+
+    transition: 0.25s ease;
+}
+
+.login-container:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.13);
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.login-container h1 {
+    text-align: center;
+
+    color: #0066ff;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+.login-container h3 {
+    text-align: center;
+
+    color: #1f2937;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    text-align: center;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 28px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+form {
+    width: 100%;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+input {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    margin-bottom: 16px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    background: #f9fafb;
+
+    color: #111827;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+input::placeholder {
+    color: #9ca3af;
+}
+
+input:focus {
+    background: #ffffff;
+
+    border-color: #0066ff;
+
+    box-shadow:
+        0 0 0 3px rgba(0, 102, 255, 0.12);
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+button {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 3px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0066ff,
+            #0084ff
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 12px rgba(0, 102, 255, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 102, 255, 0.28);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================
+   BOTTOM TEXT
+========================================= */
+
+.login-container p:last-child {
+    text-align: center;
+
+    margin-top: 22px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   LINKS
+========================================= */
+
+a {
+    color: #0066ff;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   ERROR / MESSAGE
+========================================= */
+
+.error-message {
+    color: #dc2626;
+
+    font-size: 13px;
+
+    margin-top: -8px;
+
+    margin-bottom: 12px;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 20px;
+    }
+
+    .login-container {
+        width: 100%;
+
+        max-width: 390px;
+
+        padding: 30px 24px;
+    }
+
+    .login-container h1 {
+        font-size: 27px;
+    }
+
+    .login-container h3 {
+        font-size: 18px;
+    }
+}

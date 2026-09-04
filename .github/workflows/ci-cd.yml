@@ -1,0 +1,109 @@
+name: DevSecOps CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # 1. Checkout source code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+
+      # 2. Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+
+      # 3. Install dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+
+      # 4. Python syntax check
+      - name: Python Syntax Check
+        run: |
+          python -m compileall backend
+
+
+      # 5. Build Docker image
+      - name: Build Docker Image
+        run: |
+          docker build -t devsecops-backend .
+
+
+      # 6. Start PostgreSQL
+      - name: Start PostgreSQL
+        run: |
+          docker network create devsecops-network || true
+
+          docker run -d \
+            --name devsecops-postgres \
+            --network devsecops-network \
+            -e POSTGRES_USER=postgres \
+            -e POSTGRES_PASSWORD=postgres \
+            -e POSTGRES_DB=devsecops \
+            postgres:16
+
+
+      # 7. Wait for PostgreSQL
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..20}; do
+            if docker exec devsecops-postgres \
+              pg_isready -U postgres -d devsecops; then
+              echo "PostgreSQL is ready"
+              break
+            fi
+
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+
+
+      # 8. Start Backend
+      - name: Start Backend
+        run: |
+          docker run -d \
+            --name devsecops-backend \
+            --network devsecops-network \
+            -p 8000:8000 \
+            devsecops-backend
+
+
+      # 9. Wait for Backend
+      - name: Wait for Backend
+        run: |
+          sleep 5
+          docker ps
+
+
+      # 10. Health Check
+      - name: Backend Health Check
+        run: |
+          curl --fail http://localhost:8000/health
+
+
+      # 11. Show Backend Logs if failed
+      - name: Backend Logs
+        if: failure()
+        run: |
+          docker logs devsecops-backend

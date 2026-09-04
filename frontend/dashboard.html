@@ -1,0 +1,3019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>DevSecOps Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            background: #111827;
+            color: white;
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .logout {
+            background: #dc2626;
+            color: white;
+            border: none;
+
+            padding: 10px 18px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        .logout:hover {
+            background: #b91c1c;
+        }
+
+        /* ================= CONTAINER ================= */
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* ================= WELCOME ================= */
+
+        .welcome {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .welcome h1 {
+            margin-top: 0;
+        }
+
+        .status {
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        /* ================= CARDS ================= */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h3 {
+            margin-top: 0;
+        }
+
+        .score {
+            font-size: 36px;
+
+            font-weight: bold;
+
+            margin: 15px 0;
+        }
+
+        /* ================= BUTTONS ================= */
+
+        .scan-button,
+        .report-button {
+            color: white;
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            margin-top: 10px;
+        }
+
+        .scan-button {
+            background: #2563eb;
+        }
+
+        .scan-button:hover {
+            background: #1d4ed8;
+        }
+
+        .scan-button:disabled,
+        .report-button:disabled {
+            background: #9ca3af;
+
+            cursor: not-allowed;
+        }
+
+        /* ================= SECTIONS ================= */
+
+        .section {
+            margin-top: 25px;
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .section h2 {
+            margin-top: 0;
+        }
+
+        /* ================= SECURITY FINDINGS ================= */
+
+        .security-issue {
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            padding: 18px;
+
+            margin-top: 15px;
+        }
+
+        .severity-badge {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 5px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .high {
+            background: #ffedd5;
+            color: #9a3412;
+        }
+
+        .medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .issue-description {
+            color: #555;
+
+            line-height: 1.5;
+        }
+
+        .recommendation {
+            background: #f9fafb;
+
+            padding: 12px;
+
+            border-left:
+                4px solid #2563eb;
+
+            margin-top: 15px;
+        }
+
+        .recommendation p {
+            margin-bottom: 0;
+        }
+
+        /* ================= TABLE ================= */
+
+        .history-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .history-table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 15px;
+        }
+
+        .history-table th,
+        .history-table td {
+            border: 1px solid #ddd;
+
+            padding: 10px;
+
+            text-align: left;
+        }
+
+        .history-table th {
+            background: #f3f4f6;
+        }
+
+        .history-good {
+            color: #16a34a;
+
+            font-weight: bold;
+        }
+
+        .history-warning {
+            color: #dc2626;
+
+            font-weight: bold;
+        }
+
+        .empty {
+            color: #666;
+
+            padding: 15px 0;
+        }
+
+        /* ================= REPORTS ================= */
+
+        .report-buttons {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-top: 15px;
+        }
+
+        .report-button {
+            background: #111827;
+        }
+
+        .report-button:hover {
+            background: #374151;
+        }
+
+        .report-card {
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            padding: 20px;
+
+            margin-top: 20px;
+
+            background: #fafafa;
+        }
+
+        .report-card h3 {
+            margin-top: 0;
+        }
+
+        .report-card h4 {
+            margin-bottom: 8px;
+        }
+
+        .report-success {
+            color: #16a34a;
+
+            font-weight: bold;
+        }
+
+        .report-warning {
+            color: #dc2626;
+
+            font-weight: bold;
+        }
+
+        /* ================= REPORT GRID ================= */
+
+        .report-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+
+            margin-top: 15px;
+        }
+
+        .report-box {
+            background: white;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            padding: 15px;
+        }
+
+        .report-box strong {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #374151;
+        }
+
+        /* ================= PDF ================= */
+
+        .pdf-button {
+            background: #7c3aed !important;
+        }
+
+        .pdf-button:hover {
+            background: #6d28d9 !important;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .report-buttons {
+                flex-direction: column;
+            }
+
+            .report-button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <div class="navbar">
+
+        <h2>
+            🔐 DevSecOps Platform
+        </h2>
+
+        <button
+            class="logout"
+            onclick="logout()">
+
+            Logout
+
+        </button>
+
+    </div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <div class="container">
+
+
+        <!-- ================= WELCOME ================= -->
+
+        <div class="welcome">
+
+            <h1>
+
+                Welcome,
+                <span id="username">
+                    User
+                </span>
+
+                👋
+
+            </h1>
+
+            <p>
+
+                Email:
+
+                <span id="email">
+                    Loading...
+                </span>
+
+            </p>
+
+            <p>
+
+                Authentication:
+
+                <span class="status">
+                    JWT Protected ✅
+                </span>
+
+            </p>
+
+        </div>
+
+
+        <!-- ================= DASHBOARD CARDS ================= -->
+
+        <div class="cards">
+
+
+            <!-- SECURITY -->
+
+            <div class="card">
+
+                <h3>
+                    🔍 Security Scan
+                </h3>
+
+                <div
+                    class="score"
+                    id="scanCount">
+
+                    0
+
+                </div>
+
+                <p>
+                    Scans completed
+                </p>
+
+                <button
+                    class="scan-button"
+                    id="securityScanBtn"
+                    onclick="runSecurityScan()">
+
+                    🛡️ Run Security Scan
+
+                </button>
+
+            </div>
+
+
+            <!-- VULNERABILITIES -->
+
+            <div class="card">
+
+                <h3>
+                    🚨 Vulnerabilities
+                </h3>
+
+                <div
+                    class="score"
+                    id="vulnerabilityCount">
+
+                    0
+
+                </div>
+
+                <p>
+                    Issues detected
+                </p>
+
+            </div>
+
+
+            <!-- COMPLIANCE -->
+
+            <div class="card">
+
+                <h3>
+                    🛡️ Compliance
+                </h3>
+
+                <div
+                    class="score"
+                    id="complianceScore">
+
+                    0%
+
+                </div>
+
+                <p>
+                    Latest compliance score
+                </p>
+
+                <button
+                    class="scan-button"
+                    id="complianceScanBtn"
+                    onclick="runComplianceScan()">
+
+                    🛡️ Run Compliance Scan
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SECURITY OVERVIEW ================= -->
+
+        <div class="section">
+
+            <h2>
+                🔐 Security Overview
+            </h2>
+
+            <div id="securityDetails">
+
+                <p>
+                    Loading security information...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SECURITY FINDINGS ================= -->
+
+        <div class="section">
+
+            <h2>
+                🚨 Security Findings
+            </h2>
+
+            <div id="securityIssues">
+
+                <p class="empty">
+                    Loading security findings...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= COMPLIANCE OVERVIEW ================= -->
+
+        <div class="section">
+
+            <h2>
+                🛡️ Compliance Overview
+            </h2>
+
+            <div id="complianceDetails">
+
+                <p>
+                    Loading compliance information...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SECURITY HISTORY ================= -->
+
+        <div class="section">
+
+            <h2>
+                📊 Security Scan History
+            </h2>
+
+            <div id="securityHistory">
+
+                <p class="empty">
+                    Loading security history...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= COMPLIANCE HISTORY ================= -->
+
+        <div class="section">
+
+            <h2>
+                📋 Compliance Scan History
+            </h2>
+
+            <div id="complianceHistory">
+
+                <p class="empty">
+                    Loading compliance history...
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= REPORTS ================= -->
+
+        <div class="section">
+
+            <h2>
+                📄 Reports
+            </h2>
+
+            <p>
+                Generate and view the latest
+                DevSecOps security and
+                compliance reports.
+            </p>
+
+
+            <div class="report-buttons">
+
+
+                <!-- SECURITY REPORT -->
+
+                <button
+                    class="report-button"
+                    id="securityReportBtn"
+                    onclick="loadSecurityReport()">
+
+                    🔐 Security Report
+
+                </button>
+
+
+                <!-- COMPLIANCE REPORT -->
+
+                <button
+                    class="report-button"
+                    id="complianceReportBtn"
+                    onclick="loadComplianceReport()">
+
+                    🛡️ Compliance Report
+
+                </button>
+
+
+                <!-- COMBINED REPORT -->
+
+                <button
+                    class="report-button"
+                    id="summaryReportBtn"
+                    onclick="loadCombinedReport()">
+
+                    📊 Combined Report
+
+                </button>
+
+
+                <!-- PDF -->
+
+                <button
+                    class="report-button pdf-button"
+                    id="pdfReportBtn"
+                    onclick="downloadPDFReport()">
+
+                    📥 Download PDF Report
+
+                </button>
+
+            </div>
+
+
+            <div id="reportDetails">
+
+                <p class="empty">
+                    Select a report above.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+
+        // ==================================================
+        // API BASE URL
+        // ==================================================
+
+        const API_BASE_URL =
+            "http://127.0.0.1:8000";
+
+
+        // ==================================================
+        // JWT TOKEN
+        // ==================================================
+
+        const token =
+            localStorage.getItem("access_token");
+
+
+        // ==================================================
+        // CHECK LOGIN
+        // ==================================================
+
+        if (!token) {
+
+            alert(
+                "Please login first."
+            );
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        // ==================================================
+        // COMMON HEADERS
+        // ==================================================
+
+        function authHeaders() {
+
+            return {
+
+                "Authorization":
+                    "Bearer " + token,
+
+                "Accept":
+                    "application/json"
+
+            };
+
+        }
+
+
+        // ==================================================
+        // LOGOUT
+        // ==================================================
+
+        function logout() {
+
+            localStorage.removeItem(
+                "access_token"
+            );
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        // ==================================================
+        // LOAD USER
+        // ==================================================
+
+        async function loadUser() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/users/me",
+                        {
+                            method: "GET",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "User:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    localStorage.removeItem(
+                        "access_token"
+                    );
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                document.getElementById(
+                    "username"
+                ).textContent =
+                    data.username ||
+                    "User";
+
+
+                document.getElementById(
+                    "email"
+                ).textContent =
+                    data.email ||
+                    "-";
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "User Error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // ==================================================
+        // LOAD SECURITY HISTORY
+        // ==================================================
+
+        async function loadSecurityHistory() {
+
+            const container =
+                document.getElementById(
+                    "securityHistory"
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/scanner/history",
+                        {
+                            method: "GET",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Security History:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    container.innerHTML =
+                        "<p>Unable to load security history.</p>";
+
+                    return;
+
+                }
+
+
+                const history =
+                    data.history || [];
+
+
+                document.getElementById(
+                    "scanCount"
+                ).textContent =
+                    data.total_scans || 0;
+
+
+                if (history.length === 0) {
+
+                    container.innerHTML = `
+                        <p class="empty">
+                            No security scan history.
+                        </p>
+                    `;
+
+                    document.getElementById(
+                        "vulnerabilityCount"
+                    ).textContent = 0;
+
+                    document.getElementById(
+                        "securityDetails"
+                    ).innerHTML = `
+                        <p>
+                            No security scan available.
+                        </p>
+                    `;
+
+                    return;
+
+                }
+
+
+                const latest =
+                    history[0];
+
+
+                const vulnerabilities =
+                    (latest.critical || 0) +
+                    (latest.high || 0) +
+                    (latest.medium || 0) +
+                    (latest.low || 0);
+
+
+                document.getElementById(
+                    "vulnerabilityCount"
+                ).textContent =
+                    vulnerabilities;
+
+
+                document.getElementById(
+                    "securityDetails"
+                ).innerHTML = `
+
+                    <p>
+                        <strong>
+                            Latest Scan ID:
+                        </strong>
+
+                        #${latest.scan_id}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Security Score:
+                        </strong>
+
+                        ${latest.security_score}%
+                    </p>
+
+                    <p>
+                        <strong>
+                            Total Checks:
+                        </strong>
+
+                        ${latest.total_checks}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Passed Checks:
+                        </strong>
+
+                        ${latest.passed_checks}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Failed Checks:
+                        </strong>
+
+                        ${
+                            (latest.total_checks || 0) -
+                            (latest.passed_checks || 0)
+                        }
+                    </p>
+
+                    <p>
+                        <strong>
+                            Critical:
+                        </strong>
+
+                        ${latest.critical || 0}
+                    </p>
+
+                    <p>
+                        <strong>
+                            High:
+                        </strong>
+
+                        ${latest.high || 0}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Medium:
+                        </strong>
+
+                        ${latest.medium || 0}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Low:
+                        </strong>
+
+                        ${latest.low || 0}
+                    </p>
+
+                `;
+
+
+                // ==================================================
+                // SECURITY HISTORY TABLE
+                // ==================================================
+
+                let html = `
+
+                    <div class="history-table-wrapper">
+
+                        <table class="history-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Scan ID
+                                    </th>
+
+                                    <th>
+                                        Score
+                                    </th>
+
+                                    <th>
+                                        Vulnerabilities
+                                    </th>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                `;
+
+
+                history.forEach(
+                    (scan) => {
+
+                        const vuln =
+                            (scan.critical || 0) +
+                            (scan.high || 0) +
+                            (scan.medium || 0) +
+                            (scan.low || 0);
+
+
+                        const date =
+                            scan.created_at
+                                ? new Date(
+                                    scan.created_at
+                                ).toLocaleString()
+                                : "-";
+
+
+                        html += `
+
+                            <tr>
+
+                                <td>
+                                    #${scan.scan_id}
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        ${scan.security_score}%
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    ${vuln}
+                                </td>
+
+                                <td>
+                                    ${date}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                );
+
+
+                html += `
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                `;
+
+
+                container.innerHTML =
+                    html;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Security History Error:",
+                    error
+                );
+
+                container.innerHTML = `
+                    <p>
+                        ⚠️ Unable to load
+                        security history.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+        // ==================================================
+        // LOAD SECURITY FINDINGS
+        // ==================================================
+
+        async function loadSecurityIssues() {
+
+            const container =
+                document.getElementById(
+                    "securityIssues"
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/scanner/",
+                        {
+                            method: "GET",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Security Findings:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    container.innerHTML = `
+                        <p>
+                            Unable to load
+                            security findings.
+                        </p>
+                    `;
+
+                    return;
+
+                }
+
+
+                const findings =
+                    data.findings || [];
+
+
+                if (findings.length === 0) {
+
+                    container.innerHTML = `
+                        <div class="empty">
+                            🛡️ No security findings.
+                        </div>
+                    `;
+
+                    return;
+
+                }
+
+
+                let html = "";
+
+
+                findings.forEach(
+                    (finding) => {
+
+                        const severity =
+                            (
+                                finding.severity ||
+                                "Low"
+                            ).toLowerCase();
+
+
+                        const status =
+                            finding.status ||
+                            "";
+
+
+                        const statusClass =
+                            status === "Warning"
+                                ? "history-warning"
+                                : "history-good";
+
+
+                        html += `
+
+                            <div
+                                class="security-issue">
+
+                                <span
+                                    class="
+                                        severity-badge
+                                        ${severity}
+                                    ">
+
+                                    ${finding.severity}
+
+                                </span>
+
+                                <h3>
+                                    ${finding.name}
+                                </h3>
+
+                                <p
+                                    class="issue-description">
+
+                                    ${finding.description}
+
+                                </p>
+
+                                <p
+                                    class="${statusClass}">
+
+                                    Status:
+                                    ${status}
+
+                                </p>
+
+                                <div
+                                    class="recommendation">
+
+                                    <strong>
+                                        Recommendation
+                                    </strong>
+
+                                    <p>
+                                        ${
+                                            finding.recommendation ||
+                                            "Review this security issue."
+                                        }
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+
+                container.innerHTML =
+                    html;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Security Findings Error:",
+                    error
+                );
+
+                container.innerHTML = `
+                    <p>
+                        ⚠️ Unable to load
+                        security findings.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+        // ==================================================
+        // RUN SECURITY SCAN
+        // ==================================================
+
+        async function runSecurityScan() {
+
+            const button =
+                document.getElementById(
+                    "securityScanBtn"
+                );
+
+
+            try {
+
+                button.disabled = true;
+
+                button.textContent =
+                    "⏳ Running Security Scan...";
+
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/scanner/scan",
+                        {
+                            method: "POST",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "New Security Scan:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    alert(
+                        data.message ||
+                        data.detail ||
+                        "Security scan failed."
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+
+                    "Security Scan Completed!\n\n" +
+
+                    "Scan ID: #" +
+                    data.scan_id +
+
+                    "\n\n" +
+
+                    "Security Score: " +
+                    data.security_score +
+                    "%" +
+
+                    "\n\n" +
+
+                    "Vulnerabilities: " +
+                    (
+                        data.vulnerabilities ||
+                        0
+                    )
+
+                );
+
+
+                await loadSecurityHistory();
+
+                await loadSecurityIssues();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Security Scan Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to backend."
+                );
+
+            }
+
+            finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "🛡️ Run Security Scan";
+
+            }
+
+        }
+
+
+        // ==================================================
+        // LOAD COMPLIANCE HISTORY
+        // ==================================================
+
+        async function loadComplianceHistory() {
+
+            const container =
+                document.getElementById(
+                    "complianceHistory"
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/compliance/history",
+                        {
+                            method: "GET",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Compliance History:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    container.innerHTML = `
+                        <p>
+                            Unable to load
+                            compliance history.
+                        </p>
+                    `;
+
+                    return;
+
+                }
+
+
+                const history =
+                    data.history || [];
+
+
+                if (history.length === 0) {
+
+                    document.getElementById(
+                        "complianceScore"
+                    ).textContent =
+                        "0%";
+
+
+                    document.getElementById(
+                        "complianceDetails"
+                    ).innerHTML = `
+                        <p>
+                            No compliance scan available.
+                        </p>
+                    `;
+
+
+                    container.innerHTML = `
+                        <p class="empty">
+                            No compliance scan history.
+                        </p>
+                    `;
+
+                    return;
+
+                }
+
+
+                const latest =
+                    history[0];
+
+
+                const score =
+                    latest.compliance_score || 0;
+
+
+                document.getElementById(
+                    "complianceScore"
+                ).textContent =
+                    score + "%";
+
+
+                document.getElementById(
+                    "complianceDetails"
+                ).innerHTML = `
+
+                    <p>
+                        <strong>
+                            Latest Scan ID:
+                        </strong>
+
+                        #${latest.scan_id}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Compliance Score:
+                        </strong>
+
+                        ${score}%
+                    </p>
+
+                    <p>
+                        <strong>
+                            Status:
+                        </strong>
+
+                        ${latest.status}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Total Checks:
+                        </strong>
+
+                        ${latest.total_checks}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Compliant Checks:
+                        </strong>
+
+                        ${latest.compliant_checks}
+                    </p>
+
+                    <p>
+                        <strong>
+                            Review Required:
+                        </strong>
+
+                        ${latest.review_required}
+                    </p>
+
+                `;
+
+
+                // ==================================================
+                // COMPLIANCE HISTORY TABLE
+                // ==================================================
+
+                let html = `
+
+                    <div class="history-table-wrapper">
+
+                        <table class="history-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Scan ID
+                                    </th>
+
+                                    <th>
+                                        Score
+                                    </th>
+
+                                    <th>
+                                        Total Checks
+                                    </th>
+
+                                    <th>
+                                        Compliant
+                                    </th>
+
+                                    <th>
+                                        Review
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                `;
+
+
+                history.forEach(
+                    (scan) => {
+
+                        const date =
+                            scan.created_at
+                                ? new Date(
+                                    scan.created_at
+                                ).toLocaleString()
+                                : "-";
+
+
+                        const statusClass =
+                            scan.status === "Compliant"
+                                ? "history-good"
+                                : "history-warning";
+
+
+                        html += `
+
+                            <tr>
+
+                                <td>
+                                    #${scan.scan_id}
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        ${scan.compliance_score}%
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    ${scan.total_checks}
+                                </td>
+
+                                <td>
+                                    ${scan.compliant_checks}
+                                </td>
+
+                                <td>
+                                    ${scan.review_required}
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        class="${statusClass}">
+
+                                        ${scan.status}
+
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    ${date}
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                );
+
+
+                html += `
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                `;
+
+
+                container.innerHTML =
+                    html;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Compliance History Error:",
+                    error
+                );
+
+                container.innerHTML = `
+                    <p>
+                        ⚠️ Unable to load
+                        compliance history.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+        // ==================================================
+        // RUN COMPLIANCE SCAN
+        // ==================================================
+
+        async function runComplianceScan() {
+
+            const button =
+                document.getElementById(
+                    "complianceScanBtn"
+                );
+
+
+            try {
+
+                button.disabled = true;
+
+                button.textContent =
+                    "⏳ Running Compliance Scan...";
+
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/compliance/scan",
+                        {
+                            method: "POST",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "New Compliance Scan:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    alert(
+                        data.message ||
+                        data.detail ||
+                        "Compliance scan failed."
+                    );
+
+                    return;
+
+                }
+
+
+                alert(
+
+                    "Compliance Scan Completed!\n\n" +
+
+                    "Scan ID: #" +
+                    (
+                        data.compliance_scan_id ||
+                        data.scan_id ||
+                        "-"
+                    ) +
+
+                    "\n\n" +
+
+                    "Compliance Score: " +
+                    (
+                        data.compliance_score ||
+                        0
+                    ) +
+                    "%" +
+
+                    "\n\n" +
+
+                    "Status: " +
+                    (
+                        data.status ||
+                        "Unknown"
+                    )
+
+                );
+
+
+                await loadComplianceHistory();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Compliance Scan Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to connect to backend."
+                );
+
+            }
+
+            finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "🛡️ Run Compliance Scan";
+
+            }
+
+        }
+
+
+        // ==================================================
+        // SECURITY REPORT
+        // ==================================================
+
+        async function loadSecurityReport() {
+
+            const button =
+                document.getElementById(
+                    "securityReportBtn"
+                );
+
+
+            const container =
+                document.getElementById(
+                    "reportDetails"
+                );
+
+
+            try {
+
+                button.disabled = true;
+
+                button.textContent =
+                    "⏳ Loading...";
+
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/reports/security",
+                        {
+                            method: "GET",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Security Report:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    container.innerHTML = `
+
+                        <div class="report-card">
+
+                            <p class="report-warning">
+
+                                ${
+                                    data.detail ||
+                                    data.message ||
+                                    "Unable to load security report."
+                                }
+
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                if (!data.scan_id) {
+
+                    container.innerHTML = `
+
+                        <div class="report-card">
+
+                            <p>
+                                No security scan found.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                const findings =
+                    data.findings || {};
+
+
+                const date =
+                    data.created_at
+                        ? new Date(
+                            data.created_at
+                        ).toLocaleString()
+                        : "-";
+
+
+                container.innerHTML = `
+
+                    <div class="report-card">
+
+                        <h3>
+                            🔐 Security Report
+                        </h3>
+
+                        <div class="report-grid">
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Scan ID
+                                </strong>
+
+                                #${data.scan_id}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Security Score
+                                </strong>
+
+                                ${data.security_score}%
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Total Checks
+                                </strong>
+
+                                ${data.total_checks}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Passed Checks
+                                </strong>
+
+                                ${data.passed_checks}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Failed Checks
+                                </strong>
+
+                                ${data.failed_checks}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Total Vulnerabilities
+                                </strong>
+
+                                ${
+                                    data.summary
+                                        ?.total_vulnerabilities ||
+                                    0
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <hr>
+
+
+                        <h4>
+                            🚨 Security Findings
+                        </h4>
+
+
+                        <div class="report-grid">
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Critical
+                                </strong>
+
+                                ${findings.critical || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    High
+                                </strong>
+
+                                ${findings.high || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Medium
+                                </strong>
+
+                                ${findings.medium || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Low
+                                </strong>
+
+                                ${findings.low || 0}
+
+                            </div>
+
+                        </div>
+
+
+                        <p>
+
+                            <strong>
+                                Created:
+                            </strong>
+
+                            ${date}
+
+                        </p>
+
+
+                        <p class="report-success">
+
+                            ✅ Security report
+                            loaded successfully.
+
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Security Report Error:",
+                    error
+                );
+
+                container.innerHTML = `
+
+                    <div class="report-card">
+
+                        <p class="report-warning">
+
+                            ⚠️ Unable to connect
+                            to backend.
+
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+            finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "🔐 Security Report";
+
+            }
+
+        }
+
+
+        // ==================================================
+        // COMPLIANCE REPORT
+        // ==================================================
+
+        async function loadComplianceReport() {
+
+            const button =
+                document.getElementById(
+                    "complianceReportBtn"
+                );
+
+
+            const container =
+                document.getElementById(
+                    "reportDetails"
+                );
+
+
+            try {
+
+                button.disabled = true;
+
+                button.textContent =
+                    "⏳ Loading...";
+
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/reports/compliance",
+                        {
+                            method: "GET",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Compliance Report:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    container.innerHTML = `
+
+                        <div class="report-card">
+
+                            <p class="report-warning">
+
+                                ${
+                                    data.detail ||
+                                    data.message ||
+                                    "Unable to load compliance report."
+                                }
+
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                if (!data.scan_id) {
+
+                    container.innerHTML = `
+
+                        <div class="report-card">
+
+                            <p>
+                                No compliance scan found.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                const date =
+                    data.created_at
+                        ? new Date(
+                            data.created_at
+                        ).toLocaleString()
+                        : "-";
+
+
+                const statusClass =
+                    data.status === "Compliant"
+                        ? "report-success"
+                        : "report-warning";
+
+
+                container.innerHTML = `
+
+                    <div class="report-card">
+
+                        <h3>
+                            🛡️ Compliance Report
+                        </h3>
+
+
+                        <div class="report-grid">
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Scan ID
+                                </strong>
+
+                                #${data.scan_id}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Compliance Score
+                                </strong>
+
+                                ${data.compliance_score}%
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Total Checks
+                                </strong>
+
+                                ${data.total_checks}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Compliant Checks
+                                </strong>
+
+                                ${data.compliant_checks}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Review Required
+                                </strong>
+
+                                ${data.review_required}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Status
+                                </strong>
+
+                                <span class="${statusClass}">
+
+                                    ${data.status}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <p>
+
+                            <strong>
+                                Created:
+                            </strong>
+
+                            ${date}
+
+                        </p>
+
+
+                        <p class="report-success">
+
+                            ✅ Compliance report
+                            loaded successfully.
+
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Compliance Report Error:",
+                    error
+                );
+
+                container.innerHTML = `
+
+                    <div class="report-card">
+
+                        <p class="report-warning">
+
+                            ⚠️ Unable to connect
+                            to backend.
+
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+            finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "🛡️ Compliance Report";
+
+            }
+
+        }
+
+
+        // ==================================================
+        // COMBINED REPORT
+        // ==================================================
+
+        async function loadCombinedReport() {
+
+            const button =
+                document.getElementById(
+                    "summaryReportBtn"
+                );
+
+
+            const container =
+                document.getElementById(
+                    "reportDetails"
+                );
+
+
+            try {
+
+                button.disabled = true;
+
+                button.textContent =
+                    "⏳ Loading...";
+
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/reports/summary",
+                        {
+                            method: "GET",
+                            headers:
+                                authHeaders()
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "Combined Report:",
+                    data
+                );
+
+
+                if (!response.ok) {
+
+                    container.innerHTML = `
+
+                        <div class="report-card">
+
+                            <p class="report-warning">
+
+                                ${
+                                    data.detail ||
+                                    data.message ||
+                                    "Unable to load combined report."
+                                }
+
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                const security =
+                    data.security || {};
+
+
+                const compliance =
+                    data.compliance || {};
+
+
+                const securityFindings =
+                    security.findings || {};
+
+
+                const complianceStatusClass =
+                    compliance.status ===
+                    "Compliant"
+
+                        ? "report-success"
+
+                        : "report-warning";
+
+
+                container.innerHTML = `
+
+                    <div class="report-card">
+
+                        <h3>
+                            📊 DevSecOps Combined Report
+                        </h3>
+
+
+                        <h4>
+                            👤 User Information
+                        </h4>
+
+
+                        <div class="report-grid">
+
+                            <div class="report-box">
+
+                                <strong>
+                                    User ID
+                                </strong>
+
+                                ${data.user?.id || "-"}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Username
+                                </strong>
+
+                                ${data.user?.username || "-"}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Email
+                                </strong>
+
+                                ${data.user?.email || "-"}
+
+                            </div>
+
+                        </div>
+
+
+                        <hr>
+
+
+                        <h4>
+                            🔐 Security
+                        </h4>
+
+
+                        <div class="report-grid">
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Scan ID
+                                </strong>
+
+                                ${
+                                    security.scan_id
+                                        ? "#" +
+                                          security.scan_id
+                                        : "No Scan"
+                                }
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Security Score
+                                </strong>
+
+                                ${security.security_score || 0}%
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Total Checks
+                                </strong>
+
+                                ${security.total_checks || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Passed Checks
+                                </strong>
+
+                                ${security.passed_checks || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Failed Checks
+                                </strong>
+
+                                ${security.failed_checks || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Vulnerabilities
+                                </strong>
+
+                                ${security.vulnerabilities || 0}
+
+                            </div>
+
+                        </div>
+
+
+                        <h4>
+                            🚨 Findings
+                        </h4>
+
+
+                        <div class="report-grid">
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Critical
+                                </strong>
+
+                                ${securityFindings.critical || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    High
+                                </strong>
+
+                                ${securityFindings.high || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Medium
+                                </strong>
+
+                                ${securityFindings.medium || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Low
+                                </strong>
+
+                                ${securityFindings.low || 0}
+
+                            </div>
+
+                        </div>
+
+
+                        <hr>
+
+
+                        <h4>
+                            🛡️ Compliance
+                        </h4>
+
+
+                        <div class="report-grid">
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Scan ID
+                                </strong>
+
+                                ${
+                                    compliance.scan_id
+                                        ? "#" +
+                                          compliance.scan_id
+                                        : "No Scan"
+                                }
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Compliance Score
+                                </strong>
+
+                                ${compliance.compliance_score || 0}%
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Total Checks
+                                </strong>
+
+                                ${compliance.total_checks || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Compliant Checks
+                                </strong>
+
+                                ${compliance.compliant_checks || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Review Required
+                                </strong>
+
+                                ${compliance.review_required || 0}
+
+                            </div>
+
+
+                            <div class="report-box">
+
+                                <strong>
+                                    Status
+                                </strong>
+
+                                <span
+                                    class="${complianceStatusClass}">
+
+                                    ${compliance.status || "No Scan"}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <p class="report-success">
+
+                            ✅ Combined report
+                            loaded successfully.
+
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Combined Report Error:",
+                    error
+                );
+
+                container.innerHTML = `
+
+                    <div class="report-card">
+
+                        <p class="report-warning">
+
+                            ⚠️ Unable to connect
+                            to backend.
+
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+            finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "📊 Combined Report";
+
+            }
+
+        }
+
+
+        // ==================================================
+        // DOWNLOAD PDF REPORT
+        // ==================================================
+
+        async function downloadPDFReport() {
+
+            const button =
+                document.getElementById(
+                    "pdfReportBtn"
+                );
+
+
+            try {
+
+                button.disabled = true;
+
+                button.textContent =
+                    "⏳ Generating PDF...";
+
+
+                const response =
+                    await fetch(
+                        API_BASE_URL +
+                        "/reports/pdf",
+                        {
+                            method: "GET",
+
+                            headers: {
+
+                                "Authorization":
+                                    "Bearer " + token
+
+                            }
+
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    const errorData =
+                        await response
+                            .json()
+                            .catch(
+                                () => ({})
+                            );
+
+
+                    alert(
+
+                        errorData.detail ||
+                        errorData.message ||
+                        "PDF generation failed."
+
+                    );
+
+                    return;
+
+                }
+
+
+                const blob =
+                    await response.blob();
+
+
+                const url =
+                    window.URL
+                        .createObjectURL(blob);
+
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.href =
+                    url;
+
+
+                link.download =
+                    "DevSecOps_Report.pdf";
+
+
+                document.body.appendChild(
+                    link
+                );
+
+
+                link.click();
+
+
+                link.remove();
+
+
+                window.URL.revokeObjectURL(
+                    url
+                );
+
+
+                alert(
+                    "✅ PDF Report downloaded successfully!"
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "PDF Report Error:",
+                    error
+                );
+
+                alert(
+                    "⚠️ Unable to download PDF report."
+                );
+
+            }
+
+            finally {
+
+                button.disabled = false;
+
+                button.textContent =
+                    "📥 Download PDF Report";
+
+            }
+
+        }
+
+
+        // ==================================================
+        // START DASHBOARD
+        // ==================================================
+
+        async function startDashboard() {
+
+            await loadUser();
+
+            await loadSecurityHistory();
+
+            await loadSecurityIssues();
+
+            await loadComplianceHistory();
+
+        }
+
+
+        // ==================================================
+        // START APPLICATION
+        // ==================================================
+
+        startDashboard();
+
+
+    </script>
+
+</body>
+
+</html>

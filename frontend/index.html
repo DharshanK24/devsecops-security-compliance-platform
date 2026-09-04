@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        DevSecOps Security & Compliance Platform
+    </title>
+
+    <link rel="stylesheet"
+          href="css/dashboard.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <span class="logo-icon">
+                🔐
+            </span>
+
+            <span>
+                DevSecOps
+            </span>
+
+        </div>
+
+
+        <nav>
+
+            <a href="index.html"
+               class="active">
+
+                Dashboard
+
+            </a>
+
+
+            <span id="usernameDisplay"
+                  class="username-display">
+
+                User
+
+            </span>
+
+
+            <button
+                id="logoutBtn"
+                class="logout-button"
+                onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="container">
+
+
+        <!-- =========================
+             WELCOME
+        ========================== -->
+
+        <section class="welcome">
+
+            <div>
+
+                <p class="welcome-label">
+
+                    DEVSECOPS SECURITY PLATFORM
+
+                </p>
+
+
+                <h1>
+
+                    Security Dashboard
+
+                </h1>
+
+
+                <p class="welcome-text">
+
+                    Monitor your application's security,
+                    vulnerabilities and compliance status
+                    from one place.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SCORE CARDS
+        ========================== -->
+
+        <section class="cards">
+
+
+            <!-- SECURITY SCORE -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-icon security-icon">
+
+                        🛡️
+
+                    </div>
+
+
+                    <span class="card-label">
+
+                        SECURITY
+
+                    </span>
+
+                </div>
+
+
+                <h3>
+
+                    Security Score
+
+                </h3>
+
+
+                <p id="securityScore"
+                   class="score">
+
+                    --
+
+                </p>
+
+
+                <span class="card-description">
+
+                    Overall security rating
+
+                </span>
+
+            </div>
+
+
+
+            <!-- COMPLIANCE SCORE -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-icon compliance-icon">
+
+                        ✓
+
+                    </div>
+
+
+                    <span class="card-label">
+
+                        COMPLIANCE
+
+                    </span>
+
+                </div>
+
+
+                <h3>
+
+                    Compliance Score
+
+                </h3>
+
+
+                <p id="complianceScore"
+                   class="score">
+
+                    --
+
+                </p>
+
+
+                <span class="card-description">
+
+                    Compliance assessment
+
+                </span>
+
+            </div>
+
+
+
+            <!-- VULNERABILITIES -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-icon vulnerability-icon">
+
+                        ⚠
+
+                    </div>
+
+
+                    <span class="card-label">
+
+                        SECURITY ISSUES
+
+                    </span>
+
+                </div>
+
+
+                <h3>
+
+                    Vulnerabilities
+
+                </h3>
+
+
+                <p id="vulnerabilities"
+                   class="score">
+
+                    --
+
+                </p>
+
+
+                <span class="card-description">
+
+                    Detected security issues
+
+                </span>
+
+            </div>
+
+
+
+            <!-- COMPLIANCE STATUS -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-icon status-icon">
+
+                        ●
+
+                    </div>
+
+
+                    <span class="card-label">
+
+                        STATUS
+
+                    </span>
+
+                </div>
+
+
+                <h3>
+
+                    Compliance Status
+
+                </h3>
+
+
+                <p id="complianceStatus"
+                   class="status-score">
+
+                    --
+
+                </p>
+
+
+                <span class="card-description">
+
+                    Current compliance state
+
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SECURITY SUMMARY
+        ========================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span class="section-icon">
+
+                        🛡️
+
+                    </span>
+
+
+                    <h2>
+
+                        Security Summary
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div id="securityDetails"
+                 class="summary-content">
+
+                <div class="loading">
+
+                    Loading security information...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             COMPLIANCE SUMMARY
+        ========================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span class="section-icon">
+
+                        ✓
+
+                    </span>
+
+
+                    <h2>
+
+                        Compliance Summary
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div id="complianceDetails"
+                 class="summary-content">
+
+                <div class="loading">
+
+                    Loading compliance information...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SECURITY BREAKDOWN
+        ========================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span class="section-icon">
+
+                        ⚠️
+
+                    </span>
+
+
+                    <h2>
+
+                        Security Breakdown
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="severity-grid">
+
+
+                <!-- CRITICAL -->
+
+                <div class="severity-card critical">
+
+                    <span class="severity-icon">
+
+                        🔴
+
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+
+                            Critical
+
+                        </h3>
+
+
+                        <p id="criticalCount">
+
+                            0
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- HIGH -->
+
+                <div class="severity-card high">
+
+                    <span class="severity-icon">
+
+                        🟠
+
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+
+                            High
+
+                        </h3>
+
+
+                        <p id="highCount">
+
+                            0
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MEDIUM -->
+
+                <div class="severity-card medium">
+
+                    <span class="severity-icon">
+
+                        🟡
+
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+
+                            Medium
+
+                        </h3>
+
+
+                        <p id="mediumCount">
+
+                            0
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LOW -->
+
+                <div class="severity-card low">
+
+                    <span class="severity-icon">
+
+                        🟢
+
+                    </span>
+
+
+                    <div>
+
+                        <h3>
+
+                            Low
+
+                        </h3>
+
+
+                        <p id="lowCount">
+
+                            0
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SECURITY ISSUES
+        ========================== -->
+
+        <section class="dashboard-section security-issues-section">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span class="section-icon">
+
+                        🔎
+
+                    </span>
+
+
+                    <h2>
+
+                        Security Issues
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div id="securityIssues">
+
+
+                <div class="security-issue-empty">
+
+                    <span class="empty-icon">
+
+                        🛡️
+
+                    </span>
+
+
+                    <h3>
+
+                        Loading Security Issues...
+
+                    </h3>
+
+
+                    <p>
+
+                        Security findings will appear here
+                        after the security scan.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             COMPLIANCE BREAKDOWN
+        ========================== -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span class="section-icon">
+
+                        ✓
+
+                    </span>
+
+
+                    <h2>
+
+                        Compliance Breakdown
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COMPLIANCE PROGRESS -->
+
+            <div class="compliance-progress">
+
+
+                <div class="progress-info">
+
+                    <span>
+
+                        Compliance Progress
+
+                    </span>
+
+
+                    <strong id="complianceProgressText">
+
+                        0%
+
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        id="complianceProgress"
+                        class="progress-fill">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COMPLIANCE STATS -->
+
+            <div class="compliance-stats">
+
+
+                <div>
+
+                    <span>
+
+                        Total Checks
+
+                    </span>
+
+
+                    <strong id="totalChecks">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+
+                <div>
+
+                    <span>
+
+                        Compliant
+
+                    </span>
+
+
+                    <strong id="compliantChecks">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+
+
+                <div>
+
+                    <span>
+
+                        Review Required
+
+                    </span>
+
+
+                    <strong id="reviewRequired">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SCAN ACTIONS
+        ========================== -->
+
+        <section class="scan-section">
+
+
+            <div class="scan-header">
+
+                <div>
+
+                    <h2>
+
+                        Security & Compliance Scans
+
+                    </h2>
+
+
+                    <p>
+
+                        Run the latest security and compliance
+                        checks for your application.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="actions">
+
+
+                <!-- SECURITY SCAN -->
+
+                <button
+                    id="securityScanBtn"
+                    class="scan-button security-button"
+                    onclick="runSecurityScan()">
+
+
+                    <span>
+
+                        🛡️
+
+                    </span>
+
+
+                    Run Security Scan
+
+                </button>
+
+
+
+                <!-- COMPLIANCE SCAN -->
+
+                <button
+                    id="complianceScanBtn"
+                    class="scan-button compliance-button"
+                    onclick="runComplianceScan()">
+
+
+                    <span>
+
+                        ✓
+
+                    </span>
+
+
+                    Run Compliance Scan
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SCAN HISTORY
+        ========================== -->
+
+        <section class="dashboard-section scan-history-section">
+
+
+            <div class="section-title">
+
+                <div>
+
+                    <span class="section-icon">
+
+                        📊
+
+                    </span>
+
+
+                    <h2>
+
+                        Scan History
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div id="scanHistory">
+
+                <div class="loading">
+
+                    Loading scan history...
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SYSTEM INFO
+        ========================== -->
+
+        <section class="system-info">
+
+
+            <div>
+
+                <strong>
+
+                    Platform
+
+                </strong>
+
+
+                <span>
+
+                    DevSecOps
+
+                </span>
+
+            </div>
+
+
+
+            <div>
+
+                <strong>
+
+                    Security
+
+                </strong>
+
+
+                <span>
+
+                    Active
+
+                </span>
+
+            </div>
+
+
+
+            <div>
+
+                <strong>
+
+                    Compliance
+
+                </strong>
+
+
+                <span>
+
+                    Monitoring
+
+                </span>
+
+            </div>
+
+
+
+            <div>
+
+                <strong>
+
+                    Environment
+
+                </strong>
+
+
+                <span>
+
+                    Local
+
+                </span>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="js/dashboard.js"></script>
+
+
+</body>
+
+</html>
