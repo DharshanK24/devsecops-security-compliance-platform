@@ -1,628 +1,292 @@
-\# DevSecOps Security \& Compliance Platform
-
-
+# DevSecOps Security & Compliance Platform
 
 A containerized DevSecOps platform for automated security scanning, compliance assessment, monitoring, authentication, and report generation.
 
-
-
-\## 🚀 Project Overview
-
-
-
-The DevSecOps Security \& Compliance Platform integrates security and compliance checks into a software development workflow.
-
-
-
-\### Key Features
-
-
-
-\- JWT-based authentication
-
-\- Security vulnerability scanning
-
-\- Compliance assessment
-
-\- Scan history
-
-\- Security and compliance reports
-
-\- PDF report generation
-
-\- Docker containerization
-
-\- Nginx reverse proxy
-
-\- Prometheus monitoring
-
-\- Grafana dashboard
-
-\- GitHub Actions CI/CD
-
-\- Automated Bandit security scanning
-
-
-
-\## 🏗️ Architecture
-
-
-
-&#x20;                   ┌──────────────────┐
-
-&#x20;                   │     Frontend     │
-
-&#x20;                   │    HTML/CSS/JS   │
-
-&#x20;                   └────────┬─────────┘
-
-&#x20;                            │
-
-&#x20;                            ▼
-
-&#x20;                   ┌──────────────────┐
-
-&#x20;                   │      Nginx       │
-
-&#x20;                   │   Reverse Proxy  │
-
-&#x20;                   └────────┬─────────┘
-
-&#x20;                            │
-
-&#x20;                            ▼
-
-&#x20;                   ┌──────────────────┐
-
-&#x20;                   │  FastAPI Backend │
-
-&#x20;                   │      Python      │
-
-&#x20;                   └──────┬─────┬─────┘
-
-&#x20;                          │     │
-
-&#x20;               ┌──────────┘     └──────────┐
-
-&#x20;               ▼                           ▼
-
-&#x20;      ┌────────────────┐          ┌────────────────┐
-
-&#x20;      │   PostgreSQL   │          │ Security Scan  │
-
-&#x20;      │    Database    │          │ \& Compliance   │
-
-&#x20;      └────────────────┘          └────────────────┘
-
-
-
-&#x20;                   Monitoring
-
-&#x20;                        │
-
-&#x20;             ┌──────────┴──────────┐
-
-&#x20;             ▼                     ▼
-
-&#x20;      ┌──────────────┐      ┌──────────────┐
-
-&#x20;      │  Prometheus  │ ───► │   Grafana    │
-
-&#x20;      │    Metrics   │      │  Dashboard   │
-
-&#x20;      └──────────────┘      └──────────────┘
-
-
-
-&#x20;                    CI/CD
-
-&#x20;                      │
-
-&#x20;                      ▼
-
-&#x20;             ┌────────────────┐
-
-&#x20;             │ GitHub Actions │
-
-&#x20;             │ + Bandit Scan  │
-
-&#x20;             └────────────────┘
-
-
-
-\## 🛠️ Technology Stack
-
-
-
-\### Backend
-
-
-
-\- Python
-
-\- FastAPI
-
-\- SQLAlchemy
-
-\- PostgreSQL
-
-\- JWT Authentication
-
-
-
-\### Frontend
-
-
-
-\- HTML
-
-\- CSS
-
-\- JavaScript
-
-
-
-\### Security
-
-
-
-\- Bandit
-
-\- Security Scanner
-
-\- Compliance Scanner
-
-\- JWT Authentication
-
-
-
-\### DevOps
-
-
-
-\- Docker
-
-\- Docker Compose
-
-\- Nginx
-
-\- GitHub Actions
-
-
-
-\### Monitoring
-
-
-
-\- Prometheus
-
-\- Grafana
-
-
-
-\### Reporting
-
-
-
-\- ReportLab
-
-\- PDF Reports
-
-
-
-\## 📂 Project Structure
-
-
-
-DevSecOps Security \& Compliance Platform/
-
+## 🚀 Project Overview
+
+The DevSecOps Security & Compliance Platform integrates security and compliance checks into a software development workflow.
+
+### Key Features
+
+- JWT-based authentication
+- Security vulnerability scanning
+- Compliance assessment
+- Scan history
+- Security and compliance reports
+- PDF report generation
+- Docker containerization
+- Nginx reverse proxy
+- Prometheus monitoring
+- Grafana dashboard
+- GitHub Actions CI/CD
+- Automated Bandit security scanning
+
+## 🏗️ Architecture
+
+#text
+                    ┌──────────────────┐
+                    │     Frontend     │
+                    │    HTML/CSS/JS   │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │      Nginx       │
+                    │   Reverse Proxy  │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │  FastAPI Backend │
+                    │      Python      │
+                    └──────┬─────┬─────┘
+                           │     │
+                ┌──────────┘     └──────────┐
+                ▼                           ▼
+       ┌────────────────┐          ┌────────────────┐
+       │   PostgreSQL   │          │ Security Scan  │
+       │    Database    │          │ & Compliance   │
+       └────────────────┘          └────────────────┘
+
+                    Monitoring
+                         │
+              ┌──────────┴──────────┐
+              ▼                     ▼
+       ┌──────────────┐      ┌──────────────┐
+       │  Prometheus  │ ───► │   Grafana    │
+       │    Metrics   │      │  Dashboard   │
+       └──────────────┘      └──────────────┘
+
+                     CI/CD
+                       │
+                       ▼
+              ┌────────────────┐
+              │ GitHub Actions │
+              │ + Bandit Scan  │
+              └────────────────┘
+
+## 🛠️ Technology Stack
+
+### Backend
+- Python
+- FastAPI
+- SQLAlchemy
+- PostgreSQL
+- JWT Authentication
+
+### Frontend
+- HTML
+- CSS
+- JavaScript
+
+### Security
+- Bandit
+- Security Scanner
+- Compliance Scanner
+- JWT Authentication
+
+### DevOps
+- Docker
+- Docker Compose
+- Nginx
+- GitHub Actions
+
+### Monitoring
+- Prometheus
+- Grafana
+
+### Reporting
+- ReportLab
+- PDF Reports
+
+📂 Project Structure
+
+DevSecOps Security & Compliance Platform/
 │
-
 ├── backend/
-
 │   ├── app/
-
 │   │   ├── api/
-
 │   │   ├── core/
-
 │   │   ├── database/
-
 │   │   ├── models/
-
 │   │   ├── schemas/
-
 │   │   └── services/
-
 │   │
-
 │   ├── main.py
-
 │   └── requirements.txt
-
 │
-
 ├── frontend/
-
 │   ├── css/
-
 │   ├── js/
-
 │   ├── images/
-
 │   ├── index.html
-
 │   ├── login.html
-
 │   ├── register.html
-
 │   └── dashboard.html
-
 │
-
 ├── nginx/
-
 │   └── nginx.conf
-
 │
-
 ├── reports/
-
 │
-
 ├── .github/
-
 │   └── workflows/
-
 │       └── ci-cd.yml
-
 │
-
 ├── Dockerfile
-
 ├── compose.yaml
-
 ├── prometheus.yml
-
 └── README.md
 
+## 🔐 Security Features
 
-
-\## 🔐 Security Features
-
-
-
-\### JWT Authentication
-
-
-
+### JWT Authentication
 Users can register and login using JWT-based authentication.
-
-
 
 Protected APIs require authentication.
 
-
-
-\### Security Scanner
-
-
-
+### Security Scanner
 The platform performs security assessment and reports detected vulnerabilities.
 
-
-
-\### Compliance Scanner
-
-
-
+### Compliance Scanner
 The platform evaluates configured compliance checks and identifies items that require review.
 
-
-
-\### Automated Bandit Scan
-
-
-
+### Automated Bandit Scan
 GitHub Actions runs Bandit automatically during the CI/CD pipeline.
 
-
-
-\## 📊 Monitoring
-
-
+## 📊 Monitoring
 
 Prometheus collects backend application metrics such as:
 
+- HTTP request count
+- Request duration
+- CPU usage
+- Memory usage
+- Python process metrics
 
+Grafana visualizes these metrics through the **DevSecOps Monitoring Dashboard**.
 
-\- HTTP request count
+### Grafana Dashboard Panels
 
-\- Request duration
+- HTTP Requests
+- Memory Usage
+- CPU Usage
+- Request Rate
+- Service Uptime
+- Error Rate
 
-\- CPU usage
-
-\- Memory usage
-
-\- Python process metrics
-
-
-
-Grafana visualizes these metrics through the \*\*DevSecOps Monitoring Dashboard\*\*.
-
-
-
-\### Grafana Dashboard Panels
-
-
-
-\- HTTP Requests
-
-\- Memory Usage
-
-\- CPU Usage
-
-\- Request Rate
-
-\- Service Uptime
-
-\- Error Rate
-
-
-
-\## 🔄 CI/CD Pipeline
-
-
+## 🔄 CI/CD Pipeline
 
 GitHub Actions automatically performs:
 
+1. Checkout source code
+2. Setup Python
+3. Install dependencies
+4. Run Bandit security scan
+5. Python syntax check
+6. Build Docker image
+7. Start PostgreSQL
+8. Start backend
+9. Backend health check
+10. Display backend logs if the build fails
 
-
-1\. Checkout source code
-
-2\. Setup Python
-
-3\. Install dependencies
-
-4\. Run Bandit security scan
-
-5\. Python syntax check
-
-6\. Build Docker image
-
-7\. Start PostgreSQL
-
-8\. Start backend
-
-9\. Backend health check
-
-10\. Display backend logs if the build fails
-
-
-
-\## 🐳 Docker Services
-
-
+## 🐳 Docker Services
 
 The application uses Docker containers for:
 
-
-
-\- FastAPI Backend
-
-\- PostgreSQL
-
-\- Prometheus
-
-\- Grafana
-
-\- Nginx
-
-
+- FastAPI Backend
+- PostgreSQL
+- Prometheus
+- Grafana
+- Nginx
 
 All services communicate through the Docker network:
 
-
-
 devsecops-network
 
+## 🌐 API Endpoints
 
-
-\## 🌐 API Endpoints
-
-
-
-\### Users
-
-
-
+### Users
 POST /users/register
-
 POST /users/login
-
 GET /users/me
 
-
-
-\### Dashboard
-
-
-
+### Dashboard
 GET /dashboard/
 
-
-
-\### Security Scanner
-
-
-
+### Security Scanner
 GET /scanner/
-
 POST /scanner/scan
-
 GET /scanner/history
 
-
-
-\### Compliance
-
-
-
+### Compliance
 POST /compliance/scan
-
 GET /compliance/
-
 GET /compliance/latest
-
 GET /compliance/history
 
-
-
-\### Reports
-
-
-
+### Reports
 GET /reports/security
-
 GET /reports/compliance
-
 GET /reports/summary
-
 GET /reports/pdf
 
-
-
-\### Monitoring
-
-
-
+### Monitoring
 GET /metrics
-
 GET /health
 
+## ▶️ Running the Project
 
-
-\## ▶️ Running the Project
-
-
-
-\### Create Docker Network
-
-
-
+### Create Docker Network
 docker network create devsecops-network
 
-
-
-\### Start the Application
-
-
-
+### Start the Application
 docker compose up -d
 
-
-
-\### Check Running Containers
-
-
-
+### Check Running Containers
 docker ps
 
+## 🔗 Application URLs
 
-
-\## 🔗 Application URLs
-
-
-
-\### Backend
-
-
-
+### Backend
 http://localhost:8000
 
-
-
-\### Nginx
-
-
-
+### Nginx
 http://localhost:8080
 
-
-
-\### Swagger API Documentation
-
-
-
+### Swagger API Documentation
 http://localhost:8080/docs
 
-
-
-\### Prometheus
-
-
-
+### Prometheus
 http://localhost:9090
 
-
-
-\### Grafana
-
-
-
+### Grafana
 http://localhost:3000
 
-
-
-\## 📈 Current Test Results
-
-
+## 📈 Current Test Results
 
 The platform has been tested successfully with:
 
-
-
 | Component | Status |
-
 |---|---|
-
 | Backend Health Check | ✅ PASS |
-
 | Swagger API | ✅ PASS |
-
 | Nginx Reverse Proxy | ✅ PASS |
-
 | Prometheus Metrics | ✅ PASS |
-
 | Prometheus Target | 🟢 UP |
-
 | Grafana Dashboard | ✅ PASS |
-
 | Service Uptime | 🟢 1 |
-
 | Error Rate | 🟢 0 |
-
 | GitHub Actions CI/CD | ✅ SUCCESS |
-
 | Bandit Security Scan | ✅ SUCCESS |
 
-
-
-\## 🎯 Project Objective
-
-
+## 🎯 Project Objective
 
 The main objective of this project is to demonstrate how security, compliance, monitoring, authentication, containerization, and CI/CD can be integrated into a single DevSecOps platform.
 
-
-
-\## 👨‍💻 Author
-
-
+## 👨‍💻 Author
 
 Dharshan K
-
-
-
 Computer Science Engineering
 
+              
