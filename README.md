@@ -14,7 +14,7 @@ The DevSecOps Security \& Compliance Platform integrates security and compliance
 
 
 
-The platform provides:
+\### Key Features
 
 
 
@@ -54,7 +54,7 @@ The platform provides:
 
 &#x20;                   │     Frontend     │
 
-&#x20;                   │ HTML/CSS/JS      │
+&#x20;                   │    HTML/CSS/JS   │
 
 &#x20;                   └────────┬─────────┘
 
@@ -66,7 +66,7 @@ The platform provides:
 
 &#x20;                   │      Nginx       │
 
-&#x20;                   │ Reverse Proxy    │
+&#x20;                   │   Reverse Proxy  │
 
 &#x20;                   └────────┬─────────┘
 
@@ -76,9 +76,9 @@ The platform provides:
 
 &#x20;                   ┌──────────────────┐
 
-&#x20;                   │  FastAPI Backend  │
+&#x20;                   │  FastAPI Backend │
 
-&#x20;                   │     Python       │
+&#x20;                   │      Python      │
 
 &#x20;                   └──────┬─────┬─────┘
 
@@ -92,7 +92,7 @@ The platform provides:
 
 &#x20;      │   PostgreSQL   │          │ Security Scan  │
 
-&#x20;      │    Database    │          │  \& Compliance  │
+&#x20;      │    Database    │          │ \& Compliance   │
 
 &#x20;      └────────────────┘          └────────────────┘
 
@@ -108,19 +108,19 @@ The platform provides:
 
 &#x20;      ┌──────────────┐      ┌──────────────┐
 
-&#x20;      │ Prometheus   │ ───► │   Grafana    │
+&#x20;      │  Prometheus  │ ───► │   Grafana    │
 
-&#x20;      │   Metrics    │      │  Dashboard   │
+&#x20;      │    Metrics   │      │  Dashboard   │
 
 &#x20;      └──────────────┘      └──────────────┘
 
 
 
-&#x20;                   CI/CD
+&#x20;                    CI/CD
 
-&#x20;                     │
+&#x20;                      │
 
-&#x20;                     ▼
+&#x20;                      ▼
 
 &#x20;             ┌────────────────┐
 
@@ -184,7 +184,11 @@ ReportLab
 
 PDF Reports
 
+
+
 📂 Project Structure
+
+
 
 DevSecOps Security \& Compliance Platform/
 
@@ -240,6 +244,8 @@ DevSecOps Security \& Compliance Platform/
 
 ├── reports/
 
+│
+
 ├── .github/
 
 │   └── workflows/
@@ -255,6 +261,8 @@ DevSecOps Security \& Compliance Platform/
 ├── prometheus.yml
 
 └── README.md
+
+
 
 🔐 Security Features
 
@@ -314,17 +322,11 @@ Python process metrics
 
 
 
-Grafana visualizes these metrics through the:
+Grafana visualizes these metrics through the DevSecOps Monitoring Dashboard.
 
 
 
-DevSecOps Monitoring Dashboard
-
-
-
-Dashboard panels include:
-
-
+Grafana Dashboard Panels
 
 HTTP Requests
 
@@ -388,9 +390,9 @@ Nginx
 
 All services communicate through the Docker network:
 
-
-
 devsecops-network
+
+network
 
 🌐 API Endpoints
 
@@ -442,71 +444,43 @@ GET /health
 
 ▶️ Running the Project
 
-
-
-Create the Docker network:
-
-
+Create Docker Network
 
 docker network create devsecops-network
 
-
-
-Start the complete application:
-
-
+Start the Application
 
 docker compose up -d
 
-
-
-Check running containers:
-
-
+Check Running Containers
 
 docker ps
 
 🔗 Application URLs
 
-
-
-Backend:
-
-
+Backend
 
 http://localhost:8000
 
-
-
-Nginx:
-
-
+Nginx
 
 http://localhost:8080
 
-
-
-Swagger API Documentation:
-
-
+Swagger API Documentation
 
 http://localhost:8080/docs
 
-
-
-Prometheus:
-
-
+Prometheus
 
 http://localhost:9090
 
-
-
-Grafana:
-
-
+Grafana
 
 http://localhost:3000
+
+
+
+3000
 
 📈 Current Test Results
 
@@ -516,25 +490,31 @@ The platform has been tested successfully with:
 
 
 
-Backend health check: PASS
+Component	         Status
 
-Swagger API: PASS
+Backend Health Check	✅ PASS
 
-Nginx reverse proxy: PASS
+Swagger API	        ✅ PASS
 
-Prometheus metrics: PASS
+Nginx Reverse Proxy	✅ PASS
 
-Prometheus target: UP
+Prometheus Metrics	✅ PASS
 
-Grafana dashboard: PASS
+Prometheus Target	🟢 UP
 
-Service uptime: 1
+Grafana Dashboard	✅ PASS
 
-Error rate: 0
+Service Uptime	        🟢 1
 
-GitHub Actions CI/CD: SUCCESS
+Error Rate	        🟢 0
 
-Bandit security scan: SUCCESS
+GitHub Actions CI/CD	✅ SUCCESS
+
+Bandit Security Scan	✅ SUCCESS
+
+
+
+
 
 🎯 Project Objective
 
@@ -553,6 +533,4 @@ Dharshan K
 
 
 Computer Science Engineering
-
-
 
