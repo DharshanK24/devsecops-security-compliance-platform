@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from prometheus_fastapi_instrumentator import Instrumentator
+
 from backend.app.database.connection import engine
 
 from backend.app.models.user import User
@@ -32,8 +34,6 @@ ComplianceResult.metadata.create_all(bind=engine)
 # ==========================================
 # CORS CONFIGURATION
 # ==========================================
-# Allow only the local frontend.
-# Do NOT use allow_origins=["*"] in production.
 
 ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
@@ -73,6 +73,16 @@ app.include_router(dashboard_router)
 app.include_router(scanner_router)
 app.include_router(compliance_router)
 app.include_router(reports_router)
+
+
+# ==========================================
+# PROMETHEUS MONITORING
+# ==========================================
+
+Instrumentator().instrument(app).expose(
+    app,
+    endpoint="/metrics"
+)
 
 
 # ==========================================
