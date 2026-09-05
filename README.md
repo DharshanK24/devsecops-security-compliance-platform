@@ -48,8 +48,6 @@ The DevSecOps Security \& Compliance Platform integrates security and compliance
 
 
 
-```text
-
 &#x20;                   ┌──────────────────┐
 
 &#x20;                   │     Frontend     │
@@ -130,63 +128,89 @@ The DevSecOps Security \& Compliance Platform integrates security and compliance
 
 &#x20;             └────────────────┘
 
-🛠️ Technology Stack
 
-Backend
 
-Python
-
-FastAPI
-
-SQLAlchemy
-
-PostgreSQL
-
-JWT Authentication
-
-Frontend
-
-HTML
-
-CSS
-
-JavaScript
-
-Security
-
-Bandit
-
-Security Scanner
-
-Compliance Scanner
-
-JWT Authentication
-
-DevOps
-
-Docker
-
-Docker Compose
-
-Nginx
-
-GitHub Actions
-
-Monitoring
-
-Prometheus
-
-Grafana
-
-Reporting
-
-ReportLab
-
-PDF Reports
+\## 🛠️ Technology Stack
 
 
 
-📂 Project Structure
+\### Backend
+
+
+
+\- Python
+
+\- FastAPI
+
+\- SQLAlchemy
+
+\- PostgreSQL
+
+\- JWT Authentication
+
+
+
+\### Frontend
+
+
+
+\- HTML
+
+\- CSS
+
+\- JavaScript
+
+
+
+\### Security
+
+
+
+\- Bandit
+
+\- Security Scanner
+
+\- Compliance Scanner
+
+\- JWT Authentication
+
+
+
+\### DevOps
+
+
+
+\- Docker
+
+\- Docker Compose
+
+\- Nginx
+
+\- GitHub Actions
+
+
+
+\### Monitoring
+
+
+
+\- Prometheus
+
+\- Grafana
+
+
+
+\### Reporting
+
+
+
+\- ReportLab
+
+\- PDF Reports
+
+
+
+\## 📂 Project Structure
 
 
 
@@ -264,9 +288,11 @@ DevSecOps Security \& Compliance Platform/
 
 
 
-🔐 Security Features
+\## 🔐 Security Features
 
-JWT Authentication
+
+
+\### JWT Authentication
 
 
 
@@ -278,7 +304,7 @@ Protected APIs require authentication.
 
 
 
-Security Scanner
+\### Security Scanner
 
 
 
@@ -286,7 +312,7 @@ The platform performs security assessment and reports detected vulnerabilities.
 
 
 
-Compliance Scanner
+\### Compliance Scanner
 
 
 
@@ -294,7 +320,7 @@ The platform evaluates configured compliance checks and identifies items that re
 
 
 
-Automated Bandit Scan
+\### Automated Bandit Scan
 
 
 
@@ -302,7 +328,7 @@ GitHub Actions runs Bandit automatically during the CI/CD pipeline.
 
 
 
-📊 Monitoring
+\## 📊 Monitoring
 
 
 
@@ -310,37 +336,41 @@ Prometheus collects backend application metrics such as:
 
 
 
-HTTP request count
+\- HTTP request count
 
-Request duration
+\- Request duration
 
-CPU usage
+\- CPU usage
 
-Memory usage
+\- Memory usage
 
-Python process metrics
-
-
-
-Grafana visualizes these metrics through the DevSecOps Monitoring Dashboard.
+\- Python process metrics
 
 
 
-Grafana Dashboard Panels
+Grafana visualizes these metrics through the \*\*DevSecOps Monitoring Dashboard\*\*.
 
-HTTP Requests
 
-Memory Usage
 
-CPU Usage
+\### Grafana Dashboard Panels
 
-Request Rate
 
-Service Uptime
 
-Error Rate
+\- HTTP Requests
 
-🔄 CI/CD Pipeline
+\- Memory Usage
+
+\- CPU Usage
+
+\- Request Rate
+
+\- Service Uptime
+
+\- Error Rate
+
+
+
+\## 🔄 CI/CD Pipeline
 
 
 
@@ -348,27 +378,29 @@ GitHub Actions automatically performs:
 
 
 
-Checkout source code
+1\. Checkout source code
 
-Setup Python
+2\. Setup Python
 
-Install dependencies
+3\. Install dependencies
 
-Run Bandit security scan
+4\. Run Bandit security scan
 
-Python syntax check
+5\. Python syntax check
 
-Build Docker image
+6\. Build Docker image
 
-Start PostgreSQL
+7\. Start PostgreSQL
 
-Start backend
+8\. Start backend
 
-Backend health check
+9\. Backend health check
 
-Display backend logs if the build fails
+10\. Display backend logs if the build fails
 
-🐳 Docker Services
+
+
+\## 🐳 Docker Services
 
 
 
@@ -376,57 +408,79 @@ The application uses Docker containers for:
 
 
 
-FastAPI Backend
+\- FastAPI Backend
 
-PostgreSQL
+\- PostgreSQL
 
-Prometheus
+\- Prometheus
 
-Grafana
+\- Grafana
 
-Nginx
+\- Nginx
 
 
 
 All services communicate through the Docker network:
 
+
+
 devsecops-network
 
-network
 
-🌐 API Endpoints
 
-Users
+\## 🌐 API Endpoints
+
+
+
+\### Users
+
+
 
 POST /users/register
 
 POST /users/login
 
-GET  /users/me
+GET /users/me
 
-Dashboard
+
+
+\### Dashboard
+
+
 
 GET /dashboard/
 
-Security Scanner
 
-GET  /scanner/
+
+\### Security Scanner
+
+
+
+GET /scanner/
 
 POST /scanner/scan
 
-GET  /scanner/history
+GET /scanner/history
 
-Compliance
+
+
+\### Compliance
+
+
 
 POST /compliance/scan
 
-GET  /compliance/
+GET /compliance/
 
-GET  /compliance/latest
+GET /compliance/latest
 
-GET  /compliance/history
+GET /compliance/history
 
-Reports
+
+
+\### Reports
+
+
 
 GET /reports/security
 
@@ -436,53 +490,91 @@ GET /reports/summary
 
 GET /reports/pdf
 
-Monitoring
+
+
+\### Monitoring
+
+
 
 GET /metrics
 
 GET /health
 
-▶️ Running the Project
 
-Create Docker Network
+
+\## ▶️ Running the Project
+
+
+
+\### Create Docker Network
+
+
 
 docker network create devsecops-network
 
-Start the Application
+
+
+\### Start the Application
+
+
 
 docker compose up -d
 
-Check Running Containers
+
+
+\### Check Running Containers
+
+
 
 docker ps
 
-🔗 Application URLs
 
-Backend
+
+\## 🔗 Application URLs
+
+
+
+\### Backend
+
+
 
 http://localhost:8000
 
-Nginx
+
+
+\### Nginx
+
+
 
 http://localhost:8080
 
-Swagger API Documentation
+
+
+\### Swagger API Documentation
+
+
 
 http://localhost:8080/docs
 
-Prometheus
+
+
+\### Prometheus
+
+
 
 http://localhost:9090
 
-Grafana
+
+
+\### Grafana
+
+
 
 http://localhost:3000
 
 
 
-3000
-
-📈 Current Test Results
+\## 📈 Current Test Results
 
 
 
@@ -490,33 +582,33 @@ The platform has been tested successfully with:
 
 
 
-Component	         Status
+| Component | Status |
 
-Backend Health Check	✅ PASS
+|---|---|
 
-Swagger API	        ✅ PASS
+| Backend Health Check | ✅ PASS |
 
-Nginx Reverse Proxy	✅ PASS
+| Swagger API | ✅ PASS |
 
-Prometheus Metrics	✅ PASS
+| Nginx Reverse Proxy | ✅ PASS |
 
-Prometheus Target	🟢 UP
+| Prometheus Metrics | ✅ PASS |
 
-Grafana Dashboard	✅ PASS
+| Prometheus Target | 🟢 UP |
 
-Service Uptime	        🟢 1
+| Grafana Dashboard | ✅ PASS |
 
-Error Rate	        🟢 0
+| Service Uptime | 🟢 1 |
 
-GitHub Actions CI/CD	✅ SUCCESS
+| Error Rate | 🟢 0 |
 
-Bandit Security Scan	✅ SUCCESS
+| GitHub Actions CI/CD | ✅ SUCCESS |
+
+| Bandit Security Scan | ✅ SUCCESS |
 
 
 
-
-
-🎯 Project Objective
+\## 🎯 Project Objective
 
 
 
@@ -524,7 +616,7 @@ The main objective of this project is to demonstrate how security, compliance, m
 
 
 
-👨‍💻 Author
+\## 👨‍💻 Author
 
 
 
